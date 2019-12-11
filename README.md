@@ -27,22 +27,22 @@ Mit unserer Arbeit wollen wir aufzeigen, wie die Automatisierung mittels Vagrant
 Vagrant.configure("2") do |config|
 # Definition des Box Namens
 config.vm.define "dockermachine" do |dockermachine|
-  # Definition der zur Verfügung gestellten Box
+# Definition der zur Verfügung gestellten Box
   dockermachine.vm.box = "ubuntu/xenial64"
-  # Definiton der Hypervisors
+# Definiton der Hypervisors
   dockermachine.vm.provider "virtualbox" do |vb|
-  # Definition des RAM's auf 2GB
+# Definition des RAM's auf 2GB
   vb.memory = "2048"
-  # Definition der virtuellen CPU's
+# Definition der virtuellen CPU's
   vb.cpus = "2"
   end
-  # Gibt den Ordner Share auf der Docker VM frei und synchronisiert diese
+# Gibt den Ordner Share auf der Docker VM frei und synchronisiert diese
   config.vm.synced_folder "share", "/share"
-  # Definiert die statische IP Adresse
+# Definiert die statische IP Adresse
   dockermachine.vm.network "private_network", ip: "192.168.1.10"
-  # Richtet das NAT auf den Localhost von Port 80 zu Port 80
+# Richtet das NAT auf den Localhost von Port 80 zu Port 80
   dockermachine.vm.network "forwarded_port", guest: 80, host: 80, host_ip: "127.0.0.1"
-  # Führt nach der VM Installation das unten definierte Shellscript aus
+# Führt nach der VM Installation das unten definierte Shellscript aus
   dockermachine.vm.provision "shell", path: "installer/installer.sh"
   end
   config.vm.box = "ubuntu/xenial64"
@@ -75,37 +75,37 @@ Hier geben Wir die Konfiguration für die MySQL-Datenbank mit.
 ```
 # Definition des Web Containers
 web:
-  # Definert von vo Docker das Image bzw. COntainer starten soll (Dockerfile)
+# Definert von vo Docker das Image bzw. COntainer starten soll (Dockerfile)
   build: .
-  # Gibt den Port 80 auf 80 frei
+# Gibt den Port 80 auf 80 frei
   ports:
     - "80:80"
-  #Macht eine Verlinkung (für die Kommunikation) auf den COntainer db
+#Macht eine Verlinkung (für die Kommunikation) auf den COntainer db
   links:
     - db
-  # Definiert einen Shared folder von ./ zu /var/www/html/
+# Definiert einen Shared folder von ./ zu /var/www/html/
   volumes:
     - ./:/var/www/html/
 db:
-  # Holt den MYSQL Container mit der Version 5.7
+# Holt den MYSQL Container mit der Version 5.7
   image: "mysql:5.7"
-  # Aktiviert die Neustart Option
+# Aktiviert die Neustart Option
   restart: always
   volumes:
-  # Definiert einen Shared folder von ./ zu /var/www/html/
+# Definiert einen Shared folder von ./ zu /var/www/html/
     - ./_mysql:/var/lib/mysql
-  # Definiert die Appikationspezifischen Variablen
+# Definiert die Appikationspezifischen Variablen
   environment:
-    # Setzt das Root Kennwort auf root
+# Setzt das Root Kennwort auf root
     MYSQL_ROOT_PASSWORD: root
-    # Definiert den User admin
+# Definiert den User admin
     MYSQL_USER: admin
-    # Definiert das Passwort test für den User admin
+# Definiert das Passwort test für den User admin
     MYSQL_PASSWORD: test
-    # Definiert die Datenbank database
+# Definiert die Datenbank database
     MYSQL_DATABASE: database
   ports:
-    # Gibt den Port 80 auf 80 frei
+# Gibt den Port 80 auf 80 frei
     - "3306:3306"
 ```
 ---
