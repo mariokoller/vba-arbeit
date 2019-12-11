@@ -11,12 +11,16 @@ Diese Arbeit wurde erstellt von:
 - [YML Datei](##YML-Datei)
 - [Installation Apache & MySQL](##Installation-Apache-&-MySQL)
 - [PHP Ausgabe](##PHP-Ausgabe)
+
 ---
+
 ## Einleitung
 Mit unserer Arbeit wollen wir aufzeigen, wie die Automatisierung mittels Vagrant und Docker funktioniert. In dieser Arbeit, wird eine Linux Maschine automatisiert erstellt und auf dieser wird der Webservice inkluse Datenbank installiert, das Ziel ist die Anzeige der DB-Inhalte.
 
 ---
+
 ## Vagrantfile
+
 ### **Linux Installation**
 > [&uarr; *Zum Inhaltsverzeichnis*](##Inhaltsverzeichnis)
 
@@ -49,8 +53,11 @@ config.vm.define "dockermachine" do |dockermachine|
 end
 ```
 ---
+
 ## Dockerdateien
+
 > [&uarr; *Zum Inhaltsverzeichnis*](##Inhaltsverzeichnis)
+
 ```
 # Aktualisiert alle neuen Repositories
 sudo apt-get update -y
@@ -70,8 +77,11 @@ sudo docker-compose up
 ```
 ---
 ## YML Datei
+
 Hier geben Wir die Konfiguration für die MySQL-Datenbank mit.
+
 > [&uarr; *Zum Inhaltsverzeichnis*](##Inhaltsverzeichnis)
+
 ```
 # Definition des Web Containers
 web:
@@ -109,8 +119,11 @@ db:
     - "3306:3306"
 ```
 ---
+
 ## Installation Apache & MySQL
+
 > [&uarr; *Zum Inhaltsverzeichnis*](##Inhaltsverzeichnis)
+
 ```
 # Definiert den PHP Container mit Apache und installiert alle benötigten PHP-Module
 FROM php:5.6-apache
@@ -123,7 +136,9 @@ RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libpq-dev \
 WORKDIR /var/www/html
 ```
 ---
+
 ## PHP Ausgabe
+
 > [&uarr; *Zum Inhaltsverzeichnis*](##Inhaltsverzeichnis)
 
 Anzeige der Webseite, ob die Verbindung erfolgreich war oder fehlgeschlagen ist.
